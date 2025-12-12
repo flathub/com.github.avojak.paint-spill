@@ -12,6 +12,14 @@ finish-args:
   - '--socket=wayland'
   - '--metadata=X-DConf=migrate-path=/com/github/avojak/paint-spill/'
 
+cleanup:
+  - "/bin/granite-demo"
+  - "/include"
+  - "/lib/girepository-1.0"
+  - "/lib/pkgconfig"
+  - "/share/gir-1.0"
+  - "/share/vala"
+
 modules:
 
   - name: elementary-stylesheet
@@ -47,24 +55,6 @@ modules:
                 dest-filename: autogen.sh
                 commands:
                   - autoreconf -si
-          
-  - name: elementary-icons
-    buildsystem: meson
-    config-opts:
-      - -Dpalettes=false
-    sources:
-      - type: git
-        url: https://github.com/elementary/icons.git
-        tag: 6.1.0
-        commit: c6cf4636ea0de92c3512242dbf4ec6fb33456b13
-    modules:
-      - name: xcursorgen
-        cleanup:
-          - "*"
-        sources:
-          - type: archive
-            url: https://gitlab.freedesktop.org/xorg/app/xcursorgen/-/archive/xcursorgen-1.0.7/xcursorgen-xcursorgen-1.0.7.tar.gz
-            sha256: 7fb30a052b63e3ed02c9e43bd70fe1bf8189f2f3d702ab43b5b0726a2dbafccd
 
   - name: granite
     buildsystem: meson
