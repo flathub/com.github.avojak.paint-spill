@@ -1,7 +1,7 @@
 app-id: com.github.avojak.paint-spill
 
 runtime: org.gnome.Platform
-runtime-version: '46'
+runtime-version: '49'
 sdk: org.gnome.Sdk
 
 command: com.github.avojak.paint-spill
@@ -79,5 +79,10 @@ modules:
     sources:
       - type: git
         url: https://github.com/avojak/paint-spill.git
-        tag: 1.1.0
-        commit: b39a770282c71c86d3cfbe4ecea6190fea288203
+        tag: 1.2.0
+        commit: a0088dc5578fa2c495c5efc26e7fab219f110a0f
+    post-install:
+      # workaround for non-png-icon-in-hicolor-size-folder lint error
+      - mkdir -p /app/share/icons/hicolor/scalable/apps
+      - mv /app/share/icons/hicolor/128x128/apps/${FLATPAK_ID}.svg /app/share/icons/hicolor/scalable/apps/${FLATPAK_ID}.svg
+      - find /app/share/icons/hicolor -type f -not -path "*scalable*" -not -path "*actions*" -name "*.svg" -delete
